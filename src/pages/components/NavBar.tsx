@@ -1,10 +1,21 @@
+import Searchbar from "./Searchbar";
+import NavBarItems from "./NavBarItems";
+
 export default function NavBar() {
   return (
     <div>
-      <h2>titulo</h2>
-      <p>Tienda</p>
-      <p>Buscar</p>
-      <p>Carrito</p>
+      <div>
+        <img src="" alt="Titulo" />
+        <div>
+          <NavBarItems label="Home" />
+          <NavBarItems label="Login" />
+          <NavBarItems label="Register" />
+          <NavBarItems label="Admin/Usuario" />
+        </div>
+      </div>
+      <div>
+        <Searchbar />
+      </div>
     </div>
   );
 }
