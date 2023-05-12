@@ -9,7 +9,7 @@ generator client {
     provider = "prisma-client-js"
 }
 
-model Usuario {
+model usuario {
   id                 Int       @id @default(autoincrement())
   name               String
   image              String?
@@ -18,12 +18,12 @@ model Usuario {
   hashedPassword     String?
   createdAt          DateTime  @default(now())
   updatedAt          DateTime  @updatedAt
-  sessions           Sesion[]
-  accounts           Cuenta[]
+  sessions           sesion[]
+  accounts           cuenta[]
   favoriteIds        String[]
 }
 
-model Cuenta {
+model cuenta {
   id                 Int       @id @default(autoincrement()) 
   userId             Int    
   type               String
@@ -36,19 +36,19 @@ model Cuenta {
   scope              String?
   id_token           String?   
   session_state      String?
-  user               Usuario   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user               usuario   @relation(fields: [userId], references: [id], onDelete: Cascade)
   @@unique([provider, providerAccountId])
 }
 
-model Sesion {
+model sesion {
   id                 Int       @id @default(autoincrement())
   sessionToken       String    @unique
   userId             Int    
   expires            DateTime
-  user               Usuario   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user               usuario   @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-model VerificationToken {
+model verificationToken {
   id                 Int       @id @default(autoincrement())
   identifier         String
   token              String   @unique
