@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { conn } from "@/src/utils/database";
+import { conn } from "@/src/utils/prismadb";
 
 export default async function handler(
   req: NextApiRequest,

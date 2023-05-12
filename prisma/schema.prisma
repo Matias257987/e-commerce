@@ -1,0 +1,57 @@
+//const { DB_USER, DB_PASSWORD, DB_HOST, DB_DATABASE } = process.env;
+
+datasource db {
+    provider= "postgresql"
+    url = env("DATABASE_URL")
+}
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+model Usuario {
+  id                 Int       @id @default(autoincrement())
+  name               String
+  image              String?
+  email              String    @unique
+  emailVerified      DateTime?
+  hashedPassword     String?
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+  sessions           Sesion[]
+  accounts           Cuenta[]
+  favoriteIds        String[]
+}
+
+model Cuenta {
+  id                 Int       @id @default(autoincrement()) 
+  userId             Int    
+  type               String
+  provider           String
+  providerAccountId  String
+  refresh_token      String?   
+  access_token       String?   
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String?   
+  session_state      String?
+  user               Usuario   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@unique([provider, providerAccountId])
+}
+
+model Sesion {
+  id                 Int       @id @default(autoincrement())
+  sessionToken       String    @unique
+  userId             Int    
+  expires            DateTime
+  user               Usuario   @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  id                 Int       @id @default(autoincrement())
+  identifier         String
+  token              String   @unique
+  expires            DateTime
+  @@unique([identifier, token])
+}
