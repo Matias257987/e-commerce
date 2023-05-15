@@ -1,33 +1,6 @@
-/*
-  Warnings:
-
-  - You are about to drop the `Cuenta` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `Sesion` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `Usuario` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `VerificationToken` table. If the table is not empty, all the data it contains will be lost.
-
-*/
--- DropForeignKey
-ALTER TABLE "Cuenta" DROP CONSTRAINT "Cuenta_userId_fkey";
-
--- DropForeignKey
-ALTER TABLE "Sesion" DROP CONSTRAINT "Sesion_userId_fkey";
-
--- DropTable
-DROP TABLE "Cuenta";
-
--- DropTable
-DROP TABLE "Sesion";
-
--- DropTable
-DROP TABLE "Usuario";
-
--- DropTable
-DROP TABLE "VerificationToken";
-
 -- CreateTable
 CREATE TABLE "usuario" (
-    "id" SERIAL NOT NULL,
+    "id" VARCHAR(36) NOT NULL,
     "name" TEXT NOT NULL,
     "image" TEXT,
     "email" TEXT NOT NULL,
@@ -42,8 +15,8 @@ CREATE TABLE "usuario" (
 
 -- CreateTable
 CREATE TABLE "cuenta" (
-    "id" SERIAL NOT NULL,
-    "userId" INTEGER NOT NULL,
+    "id" VARCHAR(36) NOT NULL,
+    "userId" TEXT NOT NULL,
     "type" TEXT NOT NULL,
     "provider" TEXT NOT NULL,
     "providerAccountId" TEXT NOT NULL,
@@ -60,9 +33,9 @@ CREATE TABLE "cuenta" (
 
 -- CreateTable
 CREATE TABLE "sesion" (
-    "id" SERIAL NOT NULL,
+    "id" VARCHAR(36) NOT NULL,
     "sessionToken" TEXT NOT NULL,
-    "userId" INTEGER NOT NULL,
+    "userId" TEXT NOT NULL,
     "expires" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "sesion_pkey" PRIMARY KEY ("id")

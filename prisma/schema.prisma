@@ -10,7 +10,7 @@ generator client {
 }
 
 model usuario {
-  id                 Int       @id @default(autoincrement())
+  id                 String    @id @default(uuid()) @db.VarChar(36)
   name               String
   image              String?
   email              String    @unique
@@ -24,8 +24,8 @@ model usuario {
 }
 
 model cuenta {
-  id                 Int       @id @default(autoincrement()) 
-  userId             Int    
+  id                 String    @id @default(uuid()) @db.VarChar(36) 
+  userId             String    
   type               String
   provider           String
   providerAccountId  String
@@ -41,17 +41,17 @@ model cuenta {
 }
 
 model sesion {
-  id                 Int       @id @default(autoincrement())
+  id                 String    @id @default(uuid()) @db.VarChar(36)
   sessionToken       String    @unique
-  userId             Int    
+  userId             String    
   expires            DateTime
   user               usuario   @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model verificationToken {
-  id                 Int       @id @default(autoincrement())
+  id                 String    @id @default(uuid()) @db.VarChar(36)
   identifier         String
-  token              String   @unique
+  token              String    @unique
   expires            DateTime
   @@unique([identifier, token])
 }
