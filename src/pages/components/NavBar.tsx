@@ -1,7 +1,15 @@
 import Searchbar from "./Searchbar";
 import NavBarItems from "./NavBarItems";
+import AccountMenu from "./AccountMenu";
+import { useCallback, useState } from "react";
 
 export default function NavBar() {
+  const [showAccountMenu, setShowAccountMenu] = useState(false);
+
+  const toggleAccountMenu = useCallback(() => {
+    setShowAccountMenu((current) => !current);
+  }, []);
+
   return (
     <div>
       <div>
@@ -15,6 +23,12 @@ export default function NavBar() {
       </div>
       <div>
         <Searchbar />
+      </div>
+      <div onClick={toggleAccountMenu}>
+        <div>
+          <img src="" alt="Icono Usuario" />
+        </div>
+        <AccountMenu visible={showAccountMenu} />
       </div>
     </div>
   );

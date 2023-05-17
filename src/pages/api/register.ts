@@ -29,6 +29,7 @@ export default async function handler(
       data: {
         email,
         name,
+        password,
         hashedPassword,
         image: "",
         emailVerified: new Date(),

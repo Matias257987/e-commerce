@@ -11,12 +11,12 @@ export default async function handler(
     const users = await prisma.usuario.findMany();
     res.status(200).json(users);
   } else if (req.method === "POST") {
-    const { name, email, hashedPassword } = req.body;
+    const { name, email, password } = req.body;
     const newUser = await prisma.usuario.create({
       data: {
         name,
         email,
-        hashedPassword,
+        password,
       },
     });
     res.status(201).json(newUser);

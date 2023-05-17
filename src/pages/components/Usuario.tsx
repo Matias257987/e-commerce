@@ -9,6 +9,7 @@ const User: React.FC<UserProps> = ({ data }) => {
     <div>
       <h1>{data.name}</h1>
       <p>{data.email}</p>
+      <p>{data.password}</p>
     </div>
   );
 };

@@ -43,6 +43,9 @@ export default function Home() {
       </div>
       <div>
         <UsuarioList title="Usuarios" data={user} />
+        <button>
+          <a href="/auth">IR</a>
+        </button>
       </div>
       {/* ## ESTO VA A VERSE MEJOR EN EL DASHBOARD DEL ADMIN ## 
       <div>  
