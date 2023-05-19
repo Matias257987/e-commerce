@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import serverAuth from "@/src/utils/serverAuth";
 
+//Verifica la autenticacion del usuario
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse

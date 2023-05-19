@@ -5,10 +5,12 @@ import { NextPageContext } from "next";
 import { getSession, signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 
+//Pagina donde el usuario se puede registrar o logear
+//Si se logea satisfactoriamente es enviado a la pagina de inicio
 export async function getServerSideProps(context: NextPageContext) {
-  const session = await getSession(context);
+  const sesion = await getSession(context);
 
-  if (session) {
+  if (sesion) {
     return {
       redirect: {
         destination: "/",
@@ -45,12 +47,8 @@ const Auth = () => {
         redirect: false,
         callbackUrl: "/",
       });
-      console.log("Login");
 
       router.push("/");
-      {
-        /* <-- ESCRIBIR ACA UNA RUTA A LA QUE SE VA A REDIRIGIR UNA VEZ REGISTRADO */
-      }
     } catch (error) {
       console.log("Error");
     }
@@ -63,7 +61,6 @@ const Auth = () => {
         email,
         password,
       });
-      console.log("Register");
 
       login();
     } catch (error) {
@@ -93,12 +90,14 @@ const Auth = () => {
               label="Email"
               onChange={(e: any) => setEmail(e.target.value)}
               id="email"
+              type="email"
               value={email}
             />
             <Input
               label="Password"
               onChange={(e: any) => setPassword(e.target.value)}
               id="password"
+              type="password"
               value={password}
             />
           </div>

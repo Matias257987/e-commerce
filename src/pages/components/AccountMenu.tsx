@@ -2,14 +2,9 @@ import React from "react";
 import { signOut } from "next-auth/react";
 import useCurrentUser from "../hooks/useCurrentUser";
 
-interface AccountMenuProps {
-  visible?: boolean;
-}
-
-const AccountMenu: React.FC<AccountMenuProps> = ({ visible }) => {
+//Componente para poder mostrar la cuenta del "usuario actual" (muestra un icono "img", su nombre, y un boton para deslogearse)
+const AccountMenu = () => {
   const { data: currentUser } = useCurrentUser();
-
-  if (!visible) return null;
 
   return (
     <div>

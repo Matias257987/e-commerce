@@ -3,7 +3,7 @@ import fetcher from "@/src/utils/fetcher";
 
 //Se hace un llamado al back esto puede devolver 3 estados "error", "cargando" o "listo"
 const useCurrentUser = () => {
-  const { data, error, isLoading, mutate } = useSWR("/api/users", fetcher, {
+  const { data, error, isLoading, mutate } = useSWR("/api/current", fetcher, {
     revalidateIfStale: false,
     revalidateOnFocus: false,
     revalidateOnReconnect: false,

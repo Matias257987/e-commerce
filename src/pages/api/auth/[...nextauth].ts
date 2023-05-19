@@ -29,26 +29,26 @@ export const authOptions: AuthOptions = {
           throw new Error("Email and Password required");
         }
 
-        const user = await prismadb.usuario.findUnique({
+        const usuario = await prismadb.usuario.findUnique({
           where: {
             email: credentials.email,
           },
         });
 
-        if (!user || !user.hashedPassword) {
+        if (!usuario || !usuario.hashedPassword) {
           throw new Error("Email does't exist");
         }
 
         const isCorrectPassword = await compare(
           credentials.password,
-          user.hashedPassword
+          usuario.hashedPassword
         );
 
         if (!isCorrectPassword) {
           throw new Error("Incorrect password");
         }
 
-        return user;
+        return usuario;
       },
     }),
   ],
