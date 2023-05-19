@@ -10,21 +10,22 @@ generator client {
 }
 
 model usuario {
-  id                 String    @id @default(uuid()) @db.VarChar(36)
+  id                 String       @id @default(uuid()) @db.VarChar(36)
   name               String
   image              String?
-  email              String    @unique
+  email              String       @unique
   emailVerified      DateTime?
   hashedPassword     String?
-  createdAt          DateTime  @default(now())
-  updatedAt          DateTime  @updatedAt
+  createdAt          DateTime     @default(now())
+  updatedAt          DateTime     @updatedAt
+  isAdmin            Boolean      @default(false)
   sessions           session[]
   accounts           account[]
-  favoriteIds        String[]
+  ratings            rating[]
 }
 
 model account {
-  id                 String    @id @default(uuid()) @db.VarChar(36) 
+  id                 String       @id @default(uuid()) @db.VarChar(36) 
   userId             String    
   type               String
   provider           String
@@ -36,22 +37,63 @@ model account {
   scope              String?
   id_token           String?   
   session_state      String?
-  user               usuario   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user               usuario      @relation(fields: [userId], references: [id], onDelete: Cascade)
   @@unique([provider, providerAccountId])
 }
 
 model session {
-  id                 String    @id @default(uuid()) @db.VarChar(36)
-  sessionToken       String    @unique
+  id                 String       @id @default(uuid()) @db.VarChar(36)
+  sessionToken       String       @unique
   userId             String    
   expires            DateTime
-  user               usuario   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user               usuario      @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model verificationToken {
-  id                 String    @id @default(uuid()) @db.VarChar(36)
+  id                 String       @id @default(uuid()) @db.VarChar(36)
   identifier         String
-  token              String    @unique
+  token              String       @unique
   expires            DateTime
   @@unique([identifier, token])
 }
+
+model videojuego {
+  id                 String       @id @default(uuid()) @db.VarChar(36)
+  title              String
+  description        String
+  price              String
+  image              String
+  code               Int          @unique @default(autoincrement())
+  categories         categories[]
+  languages          languages[]
+  consoles           console[]
+  ratings            rating[]
+}
+
+model categories {
+  id                 String       @id @default(uuid()) @db.VarChar(36)
+  name               String
+  videjuegos         videojuego[]
+}
+
+model languages {
+  id                 String       @id @default(uuid()) @db.VarChar(36)
+  name               String
+  videjuegos         videojuego[]
+}
+
+model console {
+  id                 String       @id @default(uuid()) @db.VarChar(36)
+  name               String
+  videjuegos         videojuego[]
+}
+
+model rating {
+  id                 String       @id @default(uuid()) @db.VarChar(36)
+  score              Int
+  videjuego          videojuego   @relation(fields: [videojuegoId], references: [id])
+  videojuegoId       String
+  usuario            usuario      @relation(fields: [usuarioId], references: [id])
+  usuarioId          String
+}
+
