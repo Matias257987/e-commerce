@@ -7,8 +7,12 @@ interface CardProps {
 const Card: React.FC<CardProps> = ({ data }) => {
   return (
     <div>
-      <h1>{data.title}</h1>
-      <p>{data.description}</p>
+      <img src={data.image} alt="Caratula" />
+      <div>
+        <span>{data.title}</span>
+        <span>{data.description}</span>
+        <span>${data.price}</span>
+      </div>
     </div>
   );
 };
