@@ -3,6 +3,9 @@ import { NextPageContext } from "next";
 import { getSession } from "next-auth/react";
 import CardList from "./components/CardList";
 import useCardList from "./hooks/useCardList";
+import useConsoleList from "./hooks/useConsoleList";
+import useLanguageList from "./hooks/useLanguageList";
+import useCategoriesList from "./hooks/useCategoriesList";
 //import useCurrentUser from "./hooks/useCurrentUser";
 //import UsuarioList from "./components/UsuarioList";
 //import { useState } from "react";
@@ -26,6 +29,10 @@ export async function getServerSideProps(context: NextPageContext) {
 
 export default function Home() {
   const { data: vj = [] } = useCardList();
+  const { data: consoles = [] } = useConsoleList();
+  const { data: languages = [] } = useLanguageList();
+  const { data: genres = [] } = useCategoriesList();
+
   //const { data: user = [] } = useCurrentUser();
 
   // ## FUNCION CON LA CUAL MUESTRO UN ALERT AL PRESIONAR UN BOTON ##
@@ -48,11 +55,31 @@ export default function Home() {
         <h1>TITULO</h1>
         <div>
           <select>
-            {" "}
-            {/* HAY QUE MEJORAR EL FILTRO */}
-            <option value="all">todos los juegos</option>
+            {/* HAY QUE MEJORAR EL FILTRO 
             <option value="terror">Terror</option>
-            <option value="rpg">Rpg</option>
+          <option value="rpg">Rpg</option>*/}
+            <option>consolas</option>
+            {consoles.map((e: any) => (
+              <option value={e.name} key={e.id}>
+                {e.name}
+              </option>
+            ))}
+          </select>
+          <select>
+            <option>languages</option>
+            {languages.map((e: any) => (
+              <option value={e.name} key={e.id}>
+                {e.name}
+              </option>
+            ))}
+          </select>
+          <select>
+            <option>genres</option>
+            {genres.map((e: any) => (
+              <option value={e.name} key={e.id}>
+                {e.name}
+              </option>
+            ))}
           </select>
         </div>
       </div>

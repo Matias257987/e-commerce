@@ -28,7 +28,7 @@ export default function NavBar() {
         <div>
           <img src="" alt="Icono Usuario" />
         </div>
-        <AccountMenu visible={showAccountMenu} />
+        <AccountMenu />
       </div>
     </div>
   );

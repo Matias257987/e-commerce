@@ -10,7 +10,7 @@ const AccountMenu = () => {
     <div>
       <div>
         <div>
-          <img src="" alt="Icono Usuario" />
+          {/* <img src="" alt="Icono Usuario" /> */}
           <p>{currentUser?.name}</p>
         </div>
         <hr />
