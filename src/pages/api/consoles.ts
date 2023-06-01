@@ -9,7 +9,7 @@ export default async function handler(
     switch (req.method) {
       case "GET":
         try {
-          const allConsoles = await prismadb.console.findMany();
+          const allConsoles = await prismadb.consoles.findMany();
           return res.status(200).json(allConsoles);
         } catch (error) {
           res.status(400).end();
@@ -18,7 +18,7 @@ export default async function handler(
         try {
           const { name } = req.body;
 
-          const console = await prismadb.console.create({
+          const console = await prismadb.consoles.create({
             data: {
               name,
             },
@@ -27,10 +27,10 @@ export default async function handler(
         } catch (error) {
           return res.status(400).json(error);
         }
-      case "PUT":
-        return res.status(200).json("PUT");
-      case "DELETE":
-        return res.status(200).json("DELETE");
+      // case "PUT":
+      //   return res.status(200).json("PUT");
+      // case "DELETE":
+      //   return res.status(200).json("DELETE");
       default:
         return res.status(404).json("Error: Método HTTP no válido");
     }
