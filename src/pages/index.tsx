@@ -55,27 +55,27 @@ export default function Home() {
         <h1>TITULO</h1>
         <div>
           <select>
-            {/* HAY QUE MEJORAR EL FILTRO 
+            {/* HAY QUE MEJORAR EL FILTRO
             <option value="terror">Terror</option>
           <option value="rpg">Rpg</option>*/}
             <option>consolas</option>
-            {consoles.map((e: any) => (
+            {consoles?.map((e: any) => (
               <option value={e.name} key={e.id}>
                 {e.name}
               </option>
             ))}
           </select>
           <select>
-            <option>languages</option>
-            {languages.map((e: any) => (
+            <option>lenguajes</option>
+            {languages?.map((e: any) => (
               <option value={e.name} key={e.id}>
                 {e.name}
               </option>
             ))}
           </select>
           <select>
-            <option>genres</option>
-            {genres.map((e: any) => (
+            <option>generos</option>
+            {genres?.map((e: any) => (
               <option value={e.name} key={e.id}>
                 {e.name}
               </option>
@@ -92,8 +92,8 @@ export default function Home() {
           <a href="/auth">IR</a>
         </button>
       </div> */}
-      {/* ## ESTO VA A VERSE MEJOR EN EL DASHBOARD DEL ADMIN ## 
-      <div>  
+      {/* ## ESTO VA A VERSE MEJOR EN EL DASHBOARD DEL ADMIN ##
+      <div>
         <h3>Agregar Nuevo Juego</h3>
         <input type="text" placeholder="ingrese un titulo..." />
         <input type="text" placeholder="ingrese una descripción..." />
