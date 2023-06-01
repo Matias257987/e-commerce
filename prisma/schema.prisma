@@ -64,28 +64,31 @@ model videojuego {
   price              String
   image              String
   code               Int          @unique @default(autoincrement())
-  categories         categories[]
-  languages          languages[]
-  consoles           console[]
+  categories         categories[] 
+  languages          languages[]  
+  consoles           consoles[]   
   ratings            rating[]
 }
 
 model categories {
   id                 String       @id @default(uuid()) @db.VarChar(36)
   name               String
-  videjuegos         videojuego[]
+  videojuegos        videojuego?  @relation(fields: [videojuegoId], references: [id])
+  videojuegoId       String?
 }
 
 model languages {
   id                 String       @id @default(uuid()) @db.VarChar(36)
   name               String
-  videjuegos         videojuego[]
+  videojuegos        videojuego?  @relation(fields: [videojuegoId], references: [id])
+  videojuegoId       String?
 }
 
-model console {
+model consoles {
   id                 String       @id @default(uuid()) @db.VarChar(36)
   name               String
-  videjuegos         videojuego[]
+  videojuegos        videojuego?  @relation(fields: [videojuegoId], references: [id])
+  videojuegoId       String?
 }
 
 model rating {
