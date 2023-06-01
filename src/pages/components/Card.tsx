@@ -12,6 +12,21 @@ const Card: React.FC<CardProps> = ({ data }) => {
         <span>{data.title}</span>
         <span>{data.description}</span>
         <span>${data.price}</span>
+        <ul>
+          {data.categories.map((e: any) => (
+            <li key={e.id}>{e.name}</li>
+          ))}
+        </ul>
+        <ul>
+          {data.consoles.map((e: any) => (
+            <li key={e.id}>{e.name}</li>
+          ))}
+        </ul>
+        <ul>
+          {data.languages.map((e: any) => (
+            <li key={e.id}>{e.name}</li>
+          ))}
+        </ul>
       </div>
     </div>
   );
