@@ -9,31 +9,65 @@ export default async function handler(
     switch (req.method) {
       case "GET":
         try {
-          const allGames = await prismadb.videojuego.findMany();
+          const allGames = await prismadb.videojuego.findMany({
+            include: {
+              consoles: true,
+              categories: true,
+              languages: true,
+            },
+          });
           return res.status(200).json(allGames);
         } catch (error) {
-          res.status(400).end();
+          res.status(400).json(error);
         }
       case "POST":
-        try {
-          const { title, description, price, image } = req.body;
+        const {
+          title,
+          description,
+          image,
+          price,
+          consoles,
+          categories,
+          languages,
+        } = req.body;
 
+        try {
           const game = await prismadb.videojuego.create({
             data: {
               title,
               description,
-              price,
               image,
+              price,
+              categories: {
+                connect: categories?.map((categoryId: string) => ({
+                  id: categoryId,
+                })),
+              },
+              consoles: {
+                connect: consoles?.map((consoleId: string) => ({
+                  id: consoleId,
+                })),
+              },
+              languages: {
+                connect: languages?.map((languageId: string) => ({
+                  id: languageId,
+                })),
+              },
+            },
+            include: {
+              consoles: true,
+              categories: true,
+              languages: true,
             },
           });
+
           return res.status(200).json(game);
         } catch (error) {
+          console.log(error);
+
           return res.status(400).json(error);
         }
-      case "PUT":
-        return res.status(200).json("PUT");
-      case "DELETE":
-        return res.status(200).json("DELETE");
+
       default:
         return res.status(404).json("Error: Método HTTP no válido");
     }
