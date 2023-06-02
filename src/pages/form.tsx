@@ -32,6 +32,8 @@ const Form = () => {
   const { data: categories = [] } = useCategoriesList();
   const { data: languages = [] } = useLanguageList();
 
+  const titleExpre: RegExp = /[\w.,:'()%@"]{3,20}/;
+
   const [form, setForm] = useState<FormState>({
     title: "",
     description: "",
@@ -42,21 +44,42 @@ const Form = () => {
     languages: [],
   });
 
+  const [errors, setErrors] = useState({
+    title: "",
+    description: "",
+    price: "",
+    image: "",
+  });
+
+  const validate = (form: any) => {
+    let errors: any = {};
+
+    if (!form.title || !titleExpre.test(form.title))
+      errors.title = "El titulo es necesario";
+    if (!form.description) errors.description = "Ingrese una descripción";
+    if (!form.price) errors.price = "Ingrese un valor";
+    return errors;
+  };
+
   const handleSubmit = useCallback(
     async (e: React.FormEvent) => {
       e.preventDefault();
       try {
-        await axios.post("/api/games", form);
-        setForm({
-          title: "",
-          description: "",
-          price: "",
-          image: "",
-          consoles: [],
-          categories: [],
-          languages: [],
-        });
-        alert("Juego agregado con exito!");
+        if (!errors) {
+          await axios.post("/api/games", form);
+          setForm({
+            title: "",
+            description: "",
+            price: "",
+            image: "",
+            consoles: [],
+            categories: [],
+            languages: [],
+          });
+          alert("Juego agregado con exito!");
+        } else {
+          alert("Por favor rellene los campos obligatorios indicados con '*'.");
+        }
       } catch (error) {
         alert("Algo salio mal...");
       }
@@ -69,6 +92,13 @@ const Form = () => {
       ...form,
       [e.target.name]: e.target.value,
     });
+
+    setErrors(
+      validate({
+        ...form,
+        [e.target.name]: e.target.value,
+      })
+    );
   };
 
   const handleSelect = (e: any) => {
@@ -117,6 +147,7 @@ const Form = () => {
       </div>
       <form action="" id="form" onSubmit={handleSubmit}>
         <div>
+          <p>Titulo*</p>
           <input
             type="text"
             value={form.title}
@@ -125,7 +156,9 @@ const Form = () => {
             placeholder="Title..."
           />
         </div>
+        <div>{errors.title && <p>{errors.title}</p>}</div>
         <div>
+          <p>Descripción*</p>
           <textarea
             value={form.description}
             name="description"
@@ -133,7 +166,9 @@ const Form = () => {
             placeholder="Description..."
           />
         </div>
+        <div>{errors.description && <p>{errors.description}</p>}</div>
         <div>
+          <p>Precio*</p>
           <input
             type="number"
             value={form.price}
@@ -141,7 +176,9 @@ const Form = () => {
             onChange={(e) => handleChange(e)}
           />
         </div>
+        <div>{errors.price && <p>{errors.price}</p>}</div>
         <div>
+          <p>Imagen</p>
           <input
             type="img"
             value={form.image}
