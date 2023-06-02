@@ -6,9 +6,6 @@ import useCardList from "./hooks/useCardList";
 import useConsoleList from "./hooks/useConsoleList";
 import useLanguageList from "./hooks/useLanguageList";
 import useCategoriesList from "./hooks/useCategoriesList";
-//import useCurrentUser from "./hooks/useCurrentUser";
-//import UsuarioList from "./components/UsuarioList";
-//import { useState } from "react";
 
 export async function getServerSideProps(context: NextPageContext) {
   const session = await getSession(context);
@@ -33,19 +30,6 @@ export default function Home() {
   const { data: languages = [] } = useLanguageList();
   const { data: genres = [] } = useCategoriesList();
 
-  //const { data: user = [] } = useCurrentUser();
-
-  // ## FUNCION CON LA CUAL MUESTRO UN ALERT AL PRESIONAR UN BOTON ##
-  // const [apreto, setApreto] = useState(false);
-
-  // const handlerApreto = () => {
-  //   if (!apreto) {
-  //     window.alert("mesagge");
-  //     setApreto(true);
-  //     window.confirm("message de cerrado") && setApreto(false);
-  //   }
-  // };
-
   return (
     <div>
       <div>
@@ -55,9 +39,6 @@ export default function Home() {
         <h1>TITULO</h1>
         <div>
           <select>
-            {/* HAY QUE MEJORAR EL FILTRO
-            <option value="terror">Terror</option>
-          <option value="rpg">Rpg</option>*/}
             <option>consolas</option>
             {consoles?.map((e: any) => (
               <option value={e.name} key={e.id}>
@@ -86,19 +67,6 @@ export default function Home() {
       <div>
         <CardList title="Videojuegos" data={vj} />
       </div>
-      {/*<div>
-        <UsuarioList title="Usuarios" data={user} />
-        <button>
-          <a href="/auth">IR</a>
-        </button>
-      </div> */}
-      {/* ## ESTO VA A VERSE MEJOR EN EL DASHBOARD DEL ADMIN ##
-      <div>
-        <h3>Agregar Nuevo Juego</h3>
-        <input type="text" placeholder="ingrese un titulo..." />
-        <input type="text" placeholder="ingrese una descripción..." />
-        <button onClick={handlerApreto}>Agregar</button>
-      </div> */}
     </div>
   );
 }
