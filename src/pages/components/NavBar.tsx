@@ -2,8 +2,15 @@ import Searchbar from "./Searchbar";
 import NavBarItems from "./NavBarItems";
 import AccountMenu from "./AccountMenu";
 import { useCallback, useState } from "react";
+import { useRouter } from "next/router";
 
 export default function NavBar() {
+  const router = useRouter();
+  const hiddenRoutesHome = ["/form"];
+  const hiddenRoutesForm = ["/"];
+  const isRouteHiddenH = hiddenRoutesHome.includes(router.pathname);
+  const isRouteHiddenF = hiddenRoutesForm.includes(router.pathname);
+
   const [showAccountMenu, setShowAccountMenu] = useState(false);
 
   const toggleAccountMenu = useCallback(() => {
@@ -15,15 +22,15 @@ export default function NavBar() {
       <div>
         <img src="" alt="Titulo" />
         <div>
-          <NavBarItems label="Home" />
-          <NavBarItems label="Login" />
-          <NavBarItems label="Register" />
-          <NavBarItems label="Admin/Usuario" />
+          {!isRouteHiddenF && <NavBarItems label="Home" path={"/"} />}
+          {!isRouteHiddenH && <NavBarItems label="Formulario" path={"/form"} />}
         </div>
       </div>
-      <div>
-        <Searchbar />
-      </div>
+      {!isRouteHiddenH && (
+        <div>
+          <Searchbar />
+        </div>
+      )}
       <div onClick={toggleAccountMenu}>
         <div>
           <img src="" alt="Icono Usuario" />
