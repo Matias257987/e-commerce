@@ -9,6 +9,8 @@ export default async function handler(
     switch (req.method) {
       case "GET":
         try {
+          const { name } = req.query;
+
           const allGames = await prismadb.videojuego.findMany({
             include: {
               consoles: true,
@@ -16,10 +18,24 @@ export default async function handler(
               languages: true,
             },
           });
-          return res.status(200).json(allGames);
+
+          if (name) {
+            const searchGame = await allGames.find(
+              (e: any) =>
+                e.title.toLowerCase() === (name as string).toLowerCase()
+            );
+            if (searchGame) {
+              res.status(200).json(searchGame);
+            } else {
+              res.status(400).json("No encontrado");
+            }
+          } else {
+            res.status(200).json(allGames);
+          }
         } catch (error) {
-          res.status(400).json(error);
+          res.status(400).json("asflkdjgfldkgsdg");
         }
+        break;
       case "POST":
         const {
           title,
@@ -32,7 +48,7 @@ export default async function handler(
         } = req.body;
 
         try {
-          const game = await prismadb.videojuego.create({
+          const newGame = await prismadb.videojuego.create({
             data: {
               title,
               description,
@@ -61,18 +77,16 @@ export default async function handler(
             },
           });
 
-          return res.status(200).json(game);
+          res.status(200).json(newGame);
         } catch (error) {
-          console.log(error);
-
-          return res.status(400).json(error);
+          res.status(400).json(error);
         }
-
+        break;
       default:
         return res.status(404).json("Error: Método HTTP no válido");
     }
   } catch (error) {
     console.error("Error:", error);
-    return res.status(500).json("Error interno del servidor");
+    res.status(500).json("Error interno del servidor");
   }
 }
