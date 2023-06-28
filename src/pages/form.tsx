@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import useConsoleList from "@/src/pages/hooks/useConsoleList";
 import useCategoriesList from "@/src/pages/hooks/useCategoriesList";
@@ -48,8 +48,9 @@ const Form = () => {
     title: "",
     description: "",
     price: "",
-    image: "",
   });
+
+  const [button, setButton] = useState(true);
 
   const validate = (form: any) => {
     let errors: any = {};
@@ -61,25 +62,32 @@ const Form = () => {
     return errors;
   };
 
+  useEffect(() => {
+    if (
+      form.title.length &&
+      titleExpre.test(form.title) &&
+      form.description.length &&
+      form.price.length
+    )
+      setButton(false);
+    else setButton(true);
+  }, [form, setButton]);
+
   const handleSubmit = useCallback(
     async (e: React.FormEvent) => {
       e.preventDefault();
       try {
-        if (!errors) {
-          await axios.post("/api/games", form);
-          setForm({
-            title: "",
-            description: "",
-            price: "",
-            image: "",
-            consoles: [],
-            categories: [],
-            languages: [],
-          });
-          alert("Juego agregado con exito!");
-        } else {
-          alert("Por favor rellene los campos obligatorios indicados con '*'.");
-        }
+        await axios.post("/api/games", form);
+        setForm({
+          title: "",
+          description: "",
+          price: "",
+          image: "",
+          consoles: [],
+          categories: [],
+          languages: [],
+        });
+        alert("Juego agregado con exito!");
       } catch (error) {
         alert("Algo salio mal...");
       }
@@ -293,7 +301,9 @@ const Form = () => {
           </div>
         </div>
         <div>
-          <button onClick={handleSubmit}>Crear</button>
+          <button onClick={handleSubmit} disabled={button}>
+            Crear
+          </button>
         </div>
       </form>
     </div>
