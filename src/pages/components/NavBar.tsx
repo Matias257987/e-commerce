@@ -1,4 +1,4 @@
-import Searchbar from "./Searchbar";
+import axios from "axios";
 import NavBarItems from "./NavBarItems";
 import AccountMenu from "./AccountMenu";
 import { useCallback, useState } from "react";
@@ -6,9 +6,10 @@ import { useRouter } from "next/router";
 
 export default function NavBar() {
   const router = useRouter();
+
   const hiddenRoutesHome = ["/form"];
-  const hiddenRoutesForm = ["/"];
   const isRouteHiddenH = hiddenRoutesHome.includes(router.pathname);
+  const hiddenRoutesForm = ["/"];
   const isRouteHiddenF = hiddenRoutesForm.includes(router.pathname);
 
   const [showAccountMenu, setShowAccountMenu] = useState(false);
@@ -26,11 +27,6 @@ export default function NavBar() {
           {!isRouteHiddenH && <NavBarItems label="Formulario" path={"/form"} />}
         </div>
       </div>
-      {!isRouteHiddenH && (
-        <div>
-          <Searchbar />
-        </div>
-      )}
       <div onClick={toggleAccountMenu}>
         <div>
           <img src="" alt="Icono Usuario" />
