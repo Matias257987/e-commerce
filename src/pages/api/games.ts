@@ -20,21 +20,23 @@ export default async function handler(
           });
 
           if (name) {
-            const searchGame = await allGames.find(
-              (e: any) =>
-                e.title.toLowerCase() === (name as string).toLowerCase()
+            const searchResults = allGames.filter((game: any) =>
+              game.title.toLowerCase().includes((name as string).toLowerCase())
             );
-            if (searchGame) {
-              res.status(200).json(searchGame);
+
+            if (searchResults.length > 0) {
+              return res.status(200).json(searchResults);
             } else {
-              res.status(400).json("No encontrado");
+              return res.status(404).json("No se encontraron juegos");
             }
-          } else {
-            res.status(200).json(allGames);
           }
+
+          return res.status(200).json(allGames);
         } catch (error) {
-          res.status(400).json("asflkdjgfldkgsdg");
+          console.error(error);
+          return res.status(500).json("Ha ocurrido un error");
         }
+        return res.status(405).json("Método no permitido");
         break;
       case "POST":
         const {
