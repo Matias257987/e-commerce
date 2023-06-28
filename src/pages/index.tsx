@@ -1,6 +1,6 @@
-import NavBar from "./components/NavBar";
 import { NextPageContext } from "next";
 import { getSession } from "next-auth/react";
+import NavBar from "./components/NavBar";
 import CardList from "./components/CardList";
 import useCardList from "./hooks/useCardList";
 import useConsoleList from "./hooks/useConsoleList";
