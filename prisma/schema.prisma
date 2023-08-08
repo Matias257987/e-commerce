@@ -64,39 +64,66 @@ model videojuego {
   price              String
   image              String
   code               Int          @unique @default(autoincrement())
-  categories         categories[] 
-  languages          languages[]  
-  consoles           consoles[]   
+  categories         videojuegoCategories[] 
+  languages          videojuegoLanguages[]  
+  consoles           videojuegoConsoles[]   
   ratings            rating[]
 }
 
 model categories {
   id                 String       @id @default(uuid()) @db.VarChar(36)
   name               String
-  videojuegos        videojuego?  @relation(fields: [videojuegoId], references: [id])
-  videojuegoId       String?
+  videojuegos        videojuegoCategories[] 
 }
 
 model languages {
   id                 String       @id @default(uuid()) @db.VarChar(36)
   name               String
-  videojuegos        videojuego?  @relation(fields: [videojuegoId], references: [id])
-  videojuegoId       String?
+  videojuegos        videojuegoLanguages[] 
 }
 
 model consoles {
   id                 String       @id @default(uuid()) @db.VarChar(36)
   name               String
-  videojuegos        videojuego?  @relation(fields: [videojuegoId], references: [id])
-  videojuegoId       String?
+  videojuegos        videojuegoConsoles[] 
+}
+
+model videojuegoCategories {
+  videojuego    videojuego?  @relation(fields: [videojuegoId], references: [id])
+  videojuegoId  String
+
+  category      categories?  @relation(fields: [categoryId], references: [id])
+  categoryId    String
+
+  @@id([videojuegoId, categoryId])
+}
+
+model videojuegoLanguages {
+  videojuego    videojuego?  @relation(fields: [videojuegoId], references: [id])
+  videojuegoId  String
+
+  language      languages?   @relation(fields: [languageId], references: [id])
+  languageId    String
+
+  @@id([videojuegoId, languageId])
+}
+
+model videojuegoConsoles {
+  videojuego    videojuego?  @relation(fields: [videojuegoId], references: [id])
+  videojuegoId  String
+
+  console       consoles?    @relation(fields: [consoleId], references: [id])
+  consoleId     String
+
+  @@id([videojuegoId, consoleId])
 }
 
 model rating {
-  id                 String       @id @default(uuid()) @db.VarChar(36)
-  score              Int
-  videjuego          videojuego   @relation(fields: [videojuegoId], references: [id])
-  videojuegoId       String
-  usuario            usuario      @relation(fields: [usuarioId], references: [id])
-  usuarioId          String
+  id                    String       @id @default(uuid()) @db.VarChar(36)
+  score                 Int
+  videojuego            videojuego?   @relation(fields: [videojuegoId], references: [id])
+  videojuegoId          String
+  usuario               usuario?      @relation(fields: [usuarioId], references: [id])
+  usuarioId             String
 }
 
