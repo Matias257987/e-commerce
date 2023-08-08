@@ -89,6 +89,8 @@ const Form = () => {
         });
         alert("Juego agregado con exito!");
       } catch (error) {
+        console.log(error);
+
         alert("Algo salio mal...");
       }
     },
@@ -110,32 +112,66 @@ const Form = () => {
   };
 
   const handleSelect = (e: any) => {
-    form.consoles.includes(e.target.value)
-      ? alert("existe")
-      : setForm({
-          ...form,
-          consoles: [...form.consoles, e.target.value],
-        });
+    const selectedConsole = consoles.find(
+      (console: any) => console.id === e.target.value
+    );
+
+    if (selectedConsole) {
+      const consoleExists = form.consoles.some(
+        (console: any) => console === selectedConsole.id
+      );
+      if (!consoleExists) {
+        setForm((prevForm) => ({
+          ...prevForm,
+          consoles: [...prevForm.consoles, selectedConsole.id],
+        }));
+      } else {
+        alert("Esta opción ya ha sido seleccionada.");
+      }
+    }
     e.target.value = "consolas";
   };
 
   const handleSelectGenre = (e: any) => {
-    form.categories.includes(e.target.value)
-      ? alert("existe")
-      : setForm({
-          ...form,
-          categories: [...form.categories, e.target.value],
-        });
+    const selectedCategory = categories.find(
+      (category: any) => category.id === e.target.value
+    );
+
+    if (selectedCategory) {
+      const categoryExists = form.categories.some(
+        (category: any) => category === selectedCategory.id
+      );
+      if (!categoryExists) {
+        setForm((prevForm) => ({
+          ...prevForm,
+          categories: [...prevForm.categories, selectedCategory.id],
+        }));
+      } else {
+        alert("Esta opción ya ha sido seleccionada.");
+      }
+    }
     e.target.value = "generos";
   };
 
   const handleSelectLanguage = (e: any) => {
-    form.languages.includes(e.target.value)
-      ? alert("existe")
-      : setForm({
-          ...form,
-          languages: [...form.languages, e.target.value],
-        });
+    const selectedLanguage = languages.find(
+      (language: any) => language.id === e.target.value
+    );
+
+    if (selectedLanguage) {
+      const languageExists = form.languages.some(
+        (language: any) => language === selectedLanguage.id
+      );
+      if (!languageExists) {
+        setForm((prevForm) => ({
+          ...prevForm,
+          languages: [...prevForm.languages, selectedLanguage.id],
+        }));
+      } else {
+        alert("Esta opción ya ha sido seleccionada.");
+      }
+    }
+
     e.target.value = "idiomas";
   };
 
@@ -235,7 +271,7 @@ const Form = () => {
             <option disabled value="generos">
               generos
             </option>
-            {categories.map((e: any) => (
+            {categories?.map((e: any) => (
               <option value={e.id} key={`category-${e.id}`}>
                 {e.name}
               </option>
