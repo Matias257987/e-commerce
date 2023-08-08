@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import { NextPageContext } from "next";
 import { getSession } from "next-auth/react";
 import NavBar from "./components/NavBar";
@@ -30,6 +31,10 @@ export default function Home() {
   const { data: languages = [] } = useLanguageList();
   const { data: genres = [] } = useCategoriesList();
 
+  const [selectedConsole, setSelectedConsole] = useState("");
+  const [selectedLanguage, setSelectedLanguage] = useState("");
+  const [selectedGenre, setSelectedGenre] = useState("");
+
   return (
     <div>
       <div>
@@ -38,26 +43,35 @@ export default function Home() {
       <div>
         <h1>TITULO</h1>
         <div>
-          <select>
-            <option>consolas</option>
+          <select
+            value={selectedConsole}
+            onChange={(e) => setSelectedConsole(e.target.value)}
+          >
+            <option value="">consolas</option>
             {consoles?.map((e: any) => (
-              <option value={e.name} key={e.id}>
+              <option value={e.id} key={e.id}>
                 {e.name}
               </option>
             ))}
           </select>
-          <select>
-            <option>lenguajes</option>
+          <select
+            value={selectedLanguage}
+            onChange={(e) => setSelectedLanguage(e.target.value)}
+          >
+            <option value="">lenguajes</option>
             {languages?.map((e: any) => (
-              <option value={e.name} key={e.id}>
+              <option value={e.id} key={e.id}>
                 {e.name}
               </option>
             ))}
           </select>
-          <select>
-            <option>generos</option>
+          <select
+            value={selectedGenre}
+            onChange={(e) => setSelectedGenre(e.target.value)}
+          >
+            <option value="">generos</option>
             {genres?.map((e: any) => (
-              <option value={e.name} key={e.id}>
+              <option value={e.id} key={e.id}>
                 {e.name}
               </option>
             ))}
@@ -65,7 +79,13 @@ export default function Home() {
         </div>
       </div>
       <div>
-        <CardList title="Videojuegos" data={vj} />
+        <CardList
+          title="Videojuegos"
+          data={vj}
+          selectedConsole={selectedConsole}
+          selectedLanguage={selectedLanguage}
+          selectedGenre={selectedGenre}
+        />
       </div>
     </div>
   );
