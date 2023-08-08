@@ -27,10 +27,10 @@ export default async function handler(
         } catch (error) {
           return res.status(400).json(error);
         }
-      case "PUT":
-        return res.status(200).json("PUT");
-      case "DELETE":
-        return res.status(200).json("DELETE");
+      // case "PUT":
+      //   return res.status(200).json("PUT");
+      // case "DELETE":
+      //   return res.status(200).json("DELETE");
       default:
         return res.status(404).json("Error: Método HTTP no válido");
     }
