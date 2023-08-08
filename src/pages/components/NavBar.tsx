@@ -1,4 +1,3 @@
-import axios from "axios";
 import NavBarItems from "./NavBarItems";
 import AccountMenu from "./AccountMenu";
 import { useCallback, useState } from "react";
