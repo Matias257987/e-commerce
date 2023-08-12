@@ -30,8 +30,9 @@ const Auth = () => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
-
+  const [isAdmin, setIsAdmin] = useState(false);
   const [variant, setVariant] = useState("login");
+  const [showPassword, setShowPassword] = useState(false);
 
   const toggleVariant = useCallback(() => {
     setVariant((currentVariant) =>
@@ -56,17 +57,18 @@ const Auth = () => {
 
   const register = useCallback(async () => {
     try {
-      await axios.post("/api/register", {
+      await axios.post("/api/users", {
         name,
         email,
         password,
+        isAdmin: variant === "register" && isAdmin,
       });
 
       login();
     } catch (error) {
       console.log("Error");
     }
-  }, [name, email, password, login]);
+  }, [name, email, password, isAdmin, login]);
 
   return (
     <div>
@@ -79,12 +81,14 @@ const Auth = () => {
           <br />
           <div>
             {variant === "register" && (
-              <Input
-                label="Username"
-                onChange={(e: any) => setName(e.target.value)}
-                id="name"
-                value={name}
-              />
+              <div>
+                <Input
+                  label="Username"
+                  onChange={(e: any) => setName(e.target.value)}
+                  id="name"
+                  value={name}
+                />
+              </div>
             )}
             <Input
               label="Email"
@@ -97,9 +101,12 @@ const Auth = () => {
               label="Password"
               onChange={(e: any) => setPassword(e.target.value)}
               id="password"
-              type="password"
+              type={showPassword ? "text" : "password"} // Cambiar el tipo de acuerdo al estado
               value={password}
             />
+            <button onClick={() => setShowPassword(!showPassword)}>
+              {showPassword ? "Hide" : "Show"} Password
+            </button>
           </div>
           <button onClick={variant === "login" ? login : register}>
             {variant === "login" ? "Login" : "Sign up"}
