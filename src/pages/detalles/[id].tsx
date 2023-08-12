@@ -27,14 +27,6 @@ const Detalles = () => {
     languages: [],
   });
 
-  // useEffect(() => {
-  //   const selectedGame = vj.find((e: any) => e.id === id);
-
-  //   if (selectedGame) {
-  //     setEditedGame(selectedGame);
-  //   }
-  // }, [id, vj]);
-
   useEffect(() => {
     const selectedGame = vj.find((e: any) => e.id === id);
 
