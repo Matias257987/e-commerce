@@ -1,5 +1,6 @@
-import React, { useCallback, useEffect, useState } from "react";
 import axios from "axios";
+import React, { useCallback, useEffect, useState } from "react";
+import Input from "@/src/pages/components/Input";
 import useConsoleList from "@/src/pages/hooks/useConsoleList";
 import useCategoriesList from "@/src/pages/hooks/useCategoriesList";
 import useLanguageList from "@/src/pages/hooks/useLanguageList";
@@ -185,14 +186,57 @@ const Form = () => {
   };
 
   return (
-    <div>
-      <div>
-        <NavBar />
-      </div>
-      <form action="" id="form" onSubmit={handleSubmit}>
+    <div
+      className="
+        bg-gray-300
+        bg-right-bottom
+        bg-no-repeat
+        bg-cover"
+      style={{
+        backgroundImage: 'url("/images/videojuegos.jpg")',
+        backgroundAttachment: "fixed",
+        backgroundSize: "70vw 84.5vh",
+      }}
+    >
+      <NavBar />
+
+      <form
+        className="
+          pt-40
+          pb-20  
+          text-center
+          bg-gray-300
+          w-[55%]"
+        action=""
+        id="form"
+        onSubmit={handleSubmit}
+      >
         <div>
-          <p>Titulo*</p>
+          <p
+            className="
+              text-gray-600 
+              text-sm 
+              md:text-xl 
+              lg:text-2xl 
+              font-bold 
+              mb-4"
+          >
+            Titulo *
+          </p>
           <input
+            className="
+              bg-gray-200 
+              appearance-none 
+              border-2 
+              border-gray-200 
+              rounded  
+              py-2 
+              px-4 
+              text-gray-700 
+              leading-tight 
+              focus:outline-none 
+              focus:bg-white 
+              focus:border-purple-500"
             type="text"
             value={form.title}
             name="title"
@@ -200,30 +244,120 @@ const Form = () => {
             placeholder="Title..."
           />
         </div>
-        <div>{errors.title && <p>{errors.title}</p>}</div>
+        <div
+          className="
+            text-xs
+            text-red-500
+            pb-5"
+        >
+          {errors.title && <p>{errors.title}</p>}
+        </div>
         <div>
-          <p>Descripción*</p>
+          <p
+            className="
+              text-gray-600 
+              text-sm 
+              md:text-xl 
+              lg:text-2xl 
+              font-bold 
+              mb-4"
+          >
+            Descripción *
+          </p>
           <textarea
+            className="
+              bg-gray-200 
+              appearance-none 
+              border-2 
+              border-gray-200 
+              rounded  
+              py-4 
+              px-6 
+              text-gray-700 
+              leading-tight 
+              focus:outline-none 
+              focus:bg-white 
+              focus:border-purple-500"
             value={form.description}
             name="description"
             onChange={(e) => handleChange(e)}
             placeholder="Description..."
           />
         </div>
-        <div>{errors.description && <p>{errors.description}</p>}</div>
+        <div
+          className="
+            text-xs
+            text-red-500
+            pb-5"
+        >
+          {errors.description && <p>{errors.description}</p>}
+        </div>
         <div>
-          <p>Precio*</p>
+          <p
+            className="
+              text-gray-600 
+              text-sm 
+              md:text-xl 
+              lg:text-2xl 
+              font-bold 
+              mb-4"
+          >
+            Precio *
+          </p>
           <input
+            className="
+              bg-gray-200 
+              appearance-none 
+              border-2 
+              border-gray-200 
+              rounded  
+              py-2 
+              px-4 
+              text-gray-700 
+              leading-tight 
+              focus:outline-none 
+              focus:bg-white 
+              focus:border-purple-500"
             type="number"
             value={form.price}
             name="price"
             onChange={(e) => handleChange(e)}
           />
         </div>
-        <div>{errors.price && <p>{errors.price}</p>}</div>
+        <div
+          className="
+            text-xs
+            text-red-500
+            pb-5"
+        >
+          {errors.price && <p>{errors.price}</p>}
+        </div>
         <div>
-          <p>Imagen</p>
+          <p
+            className="
+              text-gray-600 
+              text-sm 
+              md:text-xl 
+              lg:text-2xl 
+              font-bold 
+              mb-4"
+          >
+            Imagen
+          </p>
           <input
+            className="
+              bg-gray-200 
+              appearance-none 
+              border-2 
+              border-gray-200 
+              rounded  
+              py-2 
+              px-4 
+              text-gray-700 
+              leading-tight 
+              focus:outline-none 
+              focus:bg-white 
+              focus:border-purple-500"
             type="img"
             value={form.image}
             name="image"
@@ -231,23 +365,70 @@ const Form = () => {
             placeholder="URL image..."
           />
         </div>
-        <div>
-          <select onChange={handleSelect} defaultValue="consolas">
-            <option disabled value="consolas">
-              consolas
+        <div
+          className="
+            flex
+            justify-center
+            pt-10"
+        >
+          <select
+            className=" 
+              mr-0.5
+              cursor-pointer
+              items-center 
+              py-2 
+              px-2.5 
+              text-sm 
+              font-medium 
+              text-center 
+              text-gray-600 
+              bg-gray-100 
+              border 
+              border-gray-300 
+              rounded-lg 
+              hover:bg-gray-200 
+              focus:ring-4 
+              focus:outline-none 
+              focus:ring-gray-100"
+            onChange={handleSelect}
+            defaultValue="consolas"
+          >
+            <option
+              className="
+                text-xs
+                text-left"
+              disabled
+              value="consolas"
+            >
+              Consolas
             </option>
             {consoles?.map((e: any) => (
-              <option value={e.id} key={`console-${e.id}`}>
+              <option
+                className=" 
+                  text-gray-600
+                  bg-gray-100
+                  font-semibold
+                  text-left"
+                value={e.id}
+                key={`console-${e.id}`}
+              >
                 {e.name}
               </option>
             ))}
           </select>
         </div>
         <div>
-          <div>
-            <h4>Consolas</h4>
+          <div className="pt-5">
+            <h4
+              className="
+                text-sm 
+                font-semibold 
+                text-gray-600"
+            >
+              Consolas:
+            </h4>
           </div>
-          <div>
+          <div className="pb-5">
             {form.consoles.map((consoleId: any) => {
               const consoleObj = consoles.find(
                 (console: any) => console.id === consoleId
@@ -255,10 +436,28 @@ const Form = () => {
               if (consoleObj) {
                 return (
                   <div
+                    className="pt-2"
                     key={`console-${consoleObj.id}`}
                     onClick={() => handleDelete(consoleObj.id)}
                   >
-                    <p>{consoleObj.name}</p>
+                    <label
+                      className="
+                        cursor-pointer
+                        shadow 
+                        border
+                        border-purple-300
+                        hover:border-purple-400
+                        hover:text-purple-500 
+                        focus:shadow-outline 
+                        focus:outline-none 
+                        text-gray-500 
+                        font-bold 
+                        py-1 
+                        px-2 
+                        rounded"
+                    >
+                      {consoleObj.name}
+                    </label>
                   </div>
                 );
               }
@@ -266,23 +465,69 @@ const Form = () => {
             })}
           </div>
         </div>
-        <div>
-          <select onChange={handleSelectGenre} defaultValue="generos">
-            <option disabled value="generos">
-              generos
+        <div
+          className="
+            flex
+            justify-center"
+        >
+          <select
+            className=" 
+              mr-0.5
+              cursor-pointer
+              items-center 
+              py-2 
+              px-2.5 
+              text-sm 
+              font-medium 
+              text-center 
+              text-gray-600 
+              bg-gray-100 
+              border 
+              border-gray-300 
+              rounded-lg 
+              hover:bg-gray-200 
+              focus:ring-4 
+              focus:outline-none 
+              focus:ring-gray-100"
+            onChange={handleSelectGenre}
+            defaultValue="generos"
+          >
+            <option
+              className="
+                text-xs
+                text-left"
+              disabled
+              value="generos"
+            >
+              Generos
             </option>
             {categories?.map((e: any) => (
-              <option value={e.id} key={`category-${e.id}`}>
+              <option
+                className=" 
+                  text-gray-600
+                  bg-gray-100
+                  font-semibold
+                  text-left"
+                value={e.id}
+                key={`category-${e.id}`}
+              >
                 {e.name}
               </option>
             ))}
           </select>
         </div>
         <div>
-          <div>
-            <h4>Generos</h4>
+          <div className="pt-5">
+            <h4
+              className="
+                text-sm 
+                font-semibold 
+                text-gray-600"
+            >
+              Generos:
+            </h4>
           </div>
-          <div>
+          <div className="pb-5">
             {form.categories.map((categoryId: any) => {
               const categoryObj = categories.find(
                 (category: any) => category.id === categoryId
@@ -290,10 +535,28 @@ const Form = () => {
               if (categoryObj) {
                 return (
                   <div
+                    className="pt-2"
                     key={`category-${categoryObj.id}`}
                     onClick={() => handleDelete(categoryObj.id)}
                   >
-                    <p>{categoryObj.name}</p>
+                    <label
+                      className="
+                        cursor-pointer
+                        shadow 
+                        border
+                        border-purple-300
+                        hover:border-purple-400
+                        hover:text-purple-500 
+                        focus:shadow-outline 
+                        focus:outline-none 
+                        text-gray-500 
+                        font-bold 
+                        py-1 
+                        px-2 
+                        rounded"
+                    >
+                      {categoryObj.name}
+                    </label>
                   </div>
                 );
               }
@@ -301,23 +564,69 @@ const Form = () => {
             })}
           </div>
         </div>
-        <div>
-          <select onChange={handleSelectLanguage} defaultValue="idiomas">
-            <option disabled value="idiomas">
-              idiomas
+        <div
+          className="
+            flex
+            justify-center"
+        >
+          <select
+            className=" 
+              mr-0.5
+              cursor-pointer
+              items-center 
+              py-2 
+              px-2.5 
+              text-sm 
+              font-medium 
+              text-center 
+              text-gray-600 
+              bg-gray-100 
+              border 
+              border-gray-300 
+              rounded-lg 
+              hover:bg-gray-200 
+              focus:ring-4 
+              focus:outline-none 
+              focus:ring-gray-100"
+            onChange={handleSelectLanguage}
+            defaultValue="idiomas"
+          >
+            <option
+              className="
+                text-xs
+                text-left"
+              disabled
+              value="idiomas"
+            >
+              Idiomas
             </option>
             {languages.map((e: any) => (
-              <option value={e.id} key={`language-${e.id}`}>
+              <option
+                className=" 
+                  text-gray-600
+                  bg-gray-100
+                  font-semibold
+                  text-left"
+                value={e.id}
+                key={`language-${e.id}`}
+              >
                 {e.name}
               </option>
             ))}
           </select>
         </div>
         <div>
-          <div>
-            <h4>Idiomas</h4>
+          <div className="pt-5">
+            <h4
+              className="
+                text-sm 
+                font-semibold 
+                text-gray-600"
+            >
+              Idiomas:
+            </h4>
           </div>
-          <div>
+          <div className="pb-5">
             {form.languages.map((languageId: any) => {
               const languageObj = languages.find(
                 (language: any) => language.id === languageId
@@ -325,10 +634,28 @@ const Form = () => {
               if (languageObj) {
                 return (
                   <div
+                    className="pt-2"
                     key={`language-${languageObj.id}`}
                     onClick={() => handleDelete(languageObj.id)}
                   >
-                    <p>{languageObj.name}</p>
+                    <label
+                      className="
+                        cursor-pointer
+                        shadow 
+                        border
+                        border-purple-300
+                        hover:border-purple-400
+                        hover:text-purple-500 
+                        focus:shadow-outline 
+                        focus:outline-none 
+                        text-gray-500 
+                        font-bold 
+                        py-1 
+                        px-2 
+                        rounded"
+                    >
+                      {languageObj.name}
+                    </label>
                   </div>
                 );
               }
@@ -336,8 +663,22 @@ const Form = () => {
             })}
           </div>
         </div>
-        <div>
-          <button onClick={handleSubmit} disabled={button}>
+        <div className="pt-10">
+          <button
+            className="
+              shadow 
+              bg-purple-500 
+              hover:bg-purple-400 
+              focus:shadow-outline 
+              focus:outline-none 
+              text-white 
+              font-bold 
+              py-2 
+              px-4 
+              rounded"
+            onClick={handleSubmit}
+            disabled={button}
+          >
             Crear
           </button>
         </div>

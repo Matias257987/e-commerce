@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { NextPageContext } from "next";
 import { getSession } from "next-auth/react";
 import NavBar from "./components/NavBar";
+import Footer from "./components/Footer";
 import CardList from "./components/CardList";
 import useCardList from "./hooks/useCardList";
 import useConsoleList from "./hooks/useConsoleList";
@@ -36,42 +37,158 @@ export default function Home() {
   const [selectedGenre, setSelectedGenre] = useState("");
 
   return (
-    <div>
+    <div
+      className="
+        bg-gray-500
+        bg-opacity-50"
+    >
       <div>
         <NavBar /> {/* renderiza la navbar */}
       </div>
-      <div>
-        <h1>TITULO</h1>
-        <div>
+      <div className="pt-40">
+        <h1
+          className="
+            text-gray-600 
+            text-md 
+            md:text-xl 
+            lg:text-2xl 
+            font-bold 
+            mb-4"
+        >
+          TITULO
+        </h1>
+        <div
+          className="
+            flex
+            justify-start"
+        >
           <select
+            className=" 
+              mr-0.5
+              cursor-pointer
+              items-center 
+              py-2 
+              px-2.5 
+              text-sm 
+              font-medium 
+              text-center 
+              text-gray-600 
+              bg-gray-100 
+              border 
+              border-gray-300 
+              rounded-lg 
+              hover:bg-gray-200 
+              focus:ring-4 
+              focus:outline-none 
+              focus:ring-gray-100"
             value={selectedConsole}
             onChange={(e) => setSelectedConsole(e.target.value)}
           >
-            <option value="">consolas</option>
+            <option
+              className="
+                text-xs
+                text-left"
+              value=""
+            >
+              Consolas
+            </option>
             {consoles?.map((e: any) => (
-              <option value={e.id} key={e.id}>
+              <option
+                className=" 
+                  text-gray-600
+                  bg-gray-100
+                  font-semibold
+                  text-left"
+                value={e.id}
+                key={e.id}
+              >
                 {e.name}
               </option>
             ))}
           </select>
           <select
+            className=" 
+              mr-0.5
+              cursor-pointer
+              items-center 
+              py-2 
+              px-2.5 
+              text-sm 
+              font-medium 
+              text-center 
+              text-gray-600 
+              bg-gray-100 
+              border 
+              border-gray-300 
+              rounded-lg 
+              hover:bg-gray-200 
+              focus:ring-4 
+              focus:outline-none 
+              focus:ring-gray-100"
             value={selectedLanguage}
             onChange={(e) => setSelectedLanguage(e.target.value)}
           >
-            <option value="">lenguajes</option>
+            <option
+              className="
+                text-xs
+                text-left"
+              value=""
+            >
+              Lenguajes
+            </option>
             {languages?.map((e: any) => (
-              <option value={e.id} key={e.id}>
+              <option
+                className=" 
+                  text-gray-600
+                  bg-gray-100
+                  font-semibold
+                  text-left"
+                value={e.id}
+                key={e.id}
+              >
                 {e.name}
               </option>
             ))}
           </select>
           <select
+            className=" 
+              cursor-pointer
+              items-center 
+              py-2 
+              px-2.5 
+              text-sm 
+              font-medium 
+              text-center 
+              text-gray-600 
+              bg-gray-100 
+              border 
+              border-gray-300 
+              rounded-lg 
+              hover:bg-gray-200 
+              focus:ring-4 
+              focus:outline-none 
+              focus:ring-gray-100"
             value={selectedGenre}
             onChange={(e) => setSelectedGenre(e.target.value)}
           >
-            <option value="">generos</option>
+            <option
+              className="
+                text-xs
+                text-left"
+              value=""
+            >
+              Generos
+            </option>
             {genres?.map((e: any) => (
-              <option value={e.id} key={e.id}>
+              <option
+                className=" 
+                  text-gray-600
+                  bg-gray-100
+                  font-semibold
+                  text-left"
+                value={e.id}
+                key={e.id}
+              >
                 {e.name}
               </option>
             ))}
@@ -86,6 +203,14 @@ export default function Home() {
           selectedLanguage={selectedLanguage}
           selectedGenre={selectedGenre}
         />
+      </div>
+      <div
+        className="
+          bg-neutral-800
+          m-10
+          rounded-md"
+      >
+        <Footer />
       </div>
     </div>
   );

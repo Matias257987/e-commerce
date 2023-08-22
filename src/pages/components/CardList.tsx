@@ -73,23 +73,86 @@ const CardList: React.FC<CardListProps> = ({
   }, [data, selectedConsole, selectedGenre, selectedLanguage]);
 
   return (
-    <div>
-      <div>
-        <p>{title}</p>
+    <div
+      className="
+        px-8 
+        md:px-12 
+        mt-4 
+        space-y-8"
+    >
+      <div
+        className="
+          flex
+          justify-center"
+      >
+        <p
+          className="
+            text-gray-600 
+            text-md 
+            md:text-xl 
+            lg:text-2xl 
+            font-bold 
+            mb-4"
+        >
+          {title}
+        </p>
       </div>
-      <div>
-        <form onSubmit={handleSearch}>
+      <div
+        className="
+          flex 
+          justify-end"
+      >
+        <form
+          className="
+            w-full 
+            max-w-sm"
+          onSubmit={handleSearch}
+        >
           <input
+            className="
+              bg-gray-200 
+              appearance-none 
+              border-2 
+              border-gray-200 
+              rounded  
+              py-2 
+              px-4 
+              text-gray-700 
+              leading-tight 
+              focus:outline-none 
+              focus:bg-white 
+              focus:border-purple-500"
             type="text"
             placeholder="Buscar..."
             value={searchGame}
             onChange={(e) => setSearchGame(e.target.value)}
           />
-          <button type="submit">Buscar</button>
+          <button
+            className="
+              shadow 
+              bg-purple-500 
+              hover:bg-purple-400 
+              focus:shadow-outline 
+              focus:outline-none 
+              text-white 
+              font-bold 
+              py-2 
+              px-4 
+              rounded"
+            type="submit"
+          >
+            Buscar
+          </button>
         </form>
       </div>
       {!searchGame ? (
-        <div>
+        <div
+          className="
+            grid 
+            sm:grid-cols-4 
+            gap-16 
+            sm:gap-4"
+        >
           {filteredData.map((vj: any) => (
             // Utilizar el enrutador para navegar a la página de detalles con el ID del videojuego
             <div key={vj.id} onClick={() => router.push(`/detalles/${vj.id}`)}>
@@ -98,7 +161,13 @@ const CardList: React.FC<CardListProps> = ({
           ))}
         </div>
       ) : (
-        <div>
+        <div
+          className="
+            grid 
+            sm:grid-cols-4 
+            gap-16 
+            sm:gap-4"
+        >
           {searchResults.map((vj: any) => (
             // Utilizar el enrutador para navegar a la página de detalles con el ID del videojuego
             <div key={vj.id} onClick={() => router.push(`/detalles/${vj.id}`)}>

@@ -107,60 +107,223 @@ const Detalles = () => {
   };
 
   return (
-    <div>
-      <div>
-        <NavBar />
-      </div>
-      <div>
+    <div className="bg-gray-300">
+      <NavBar />
+      <div
+        className="
+          pt-20
+          flex
+          justify-center"
+      >
         <Card data={editedGame} onDelete={() => {}} />
       </div>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Title:
-          <input
-            type="text"
-            name="title"
-            value={editedGame.title}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
+      <form
+        className="
+          py-8
+          px-2
+          pb-20  
+          text-center
+          bg-gray-300"
+        onSubmit={handleSubmit}
+      >
+        <div
+          className="
+            grid 
+            sm:grid-cols-3
+            gap-16 
+            sm:gap-3
+            px-8
+            py-2"
+        >
+          <label
+            className="
+              text-gray-600 
+              text-sm 
+              md:text-xl 
+              lg:text-2xl 
+              font-bold 
+              px-5
+              mb-4"
+          >
+            Title:
+            <input
+              className="
+                uppercase
+                bg-gray-200 
+                appearance-none 
+                border-2 
+                border-purple-300
+                hover:border-purple-400
+                hover:text-gray-500 
+                rounded-md 
+                m-2
+                py-1 
+                px-2 
+                text-sm
+                text-gray-700 
+                leading-tight 
+                focus:outline-none 
+                focus:bg-white 
+                focus:border-purple-500"
+              type="text"
+              name="title"
+              value={editedGame.title}
+              onChange={handleChange}
+            />
+          </label>
+          <label
+            className="
+              text-gray-600 
+              text-sm 
+              px-5
+              md:text-xl 
+              lg:text-2xl 
+              font-bold 
+              mb-4"
+          >
+            Price:
+            <input
+              className="
+                uppercase
+                bg-gray-200 
+                appearance-none 
+                border-2 
+                border-purple-300
+                hover:border-purple-400
+                hover:text-gray-500 
+                rounded-md
+                m-2 
+                py-1 
+                px-2 
+                text-sm
+                text-gray-700 
+                leading-tight 
+                focus:outline-none 
+                focus:bg-white 
+                focus:border-purple-500"
+              type="number"
+              name="price"
+              value={editedGame.price}
+              onChange={handleChange}
+            />
+          </label>
+          <label
+            className="
+              text-gray-600 
+              text-sm 
+              px-5
+              md:text-xl 
+              lg:text-2xl 
+              font-bold 
+              mb-4"
+          >
+            Image:
+            <input
+              className="
+                bg-gray-200 
+                appearance-none 
+                border-2 
+                border-purple-300
+                hover:border-purple-400
+                hover:text-gray-500 
+                rounded-md 
+                m-2
+                py-1 
+                px-2 
+                text-sm
+                text-gray-700 
+                leading-tight 
+                focus:outline-none 
+                focus:bg-white 
+                focus:border-purple-500"
+              type="img"
+              name="image"
+              value={editedGame.image}
+              onChange={handleChange}
+            />
+          </label>
+        </div>
+        <label
+          className="
+            flex
+            justify-start
+            text-gray-600 
+            text-sm 
+            px-5
+            md:text-xl 
+            lg:text-2xl 
+            font-bold 
+            ml-10"
+        >
           Description:
-          <input
-            type="text"
-            name="description"
+          <textarea
+            className="
+              bg-gray-200 
+              appearance-none 
+              border-2 
+              border-gray-200 
+              rounded
+              m-2  
+              py-2 
+              px-4
+              text-sm 
+              text-gray-700 
+              leading-tight 
+              focus:outline-none 
+              focus:bg-white 
+              focus:border-purple-500"
             value={editedGame.description}
-            onChange={handleChange}
+            name="description"
+            onChange={(e: any) => handleChange(e)}
+            placeholder="Description..."
           />
         </label>
-        <label>
-          Price:
-          <input
-            type="text"
-            name="price"
-            value={editedGame.price}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-          Image:
-          <input
-            type="img"
-            name="image"
-            value={editedGame.image}
-            onChange={handleChange}
-          />
-        </label>
-        <div>
+        <div
+          className="
+            pt-4
+            pb-4"
+        >
           <select
+            className=" 
+              mr-0.5
+              cursor-pointer
+              items-center 
+              py-2 
+              px-2.5 
+              text-sm 
+              font-medium 
+              text-center 
+              text-gray-600 
+              bg-gray-100 
+              border 
+              border-gray-300 
+              rounded-lg 
+              hover:bg-gray-200 
+              focus:ring-4 
+              focus:outline-none 
+              focus:ring-gray-100"
             onChange={(e) => handleChangeSelect("consoles", e.target.value)}
             defaultValue="default"
           >
-            <option disabled value="default">
-              consolas
+            <option
+              className="
+                text-xs
+                text-left"
+              disabled
+              value="default"
+            >
+              Consolas
             </option>
             {consoles?.map((console: any) => (
-              <option value={console.id} key={`console-${console.id}`}>
+              <option
+                className=" 
+                  text-gray-600
+                  bg-gray-100
+                  font-semibold
+                  text-left"
+                value={console.id}
+                key={`console-${console.id}`}
+              >
                 {console.name}
               </option>
             ))}
@@ -173,10 +336,23 @@ const Detalles = () => {
               if (consoleItem) {
                 return (
                   <li
+                    className="pt-2"
                     key={`consoleUl-${consoleItem.id}`}
                     onClick={() => handleDeleteOption(consoleItem.id)}
                   >
-                    {consoleItem?.name}
+                    <label
+                      className="
+                        cursor-pointer
+                        hover:text-purple-500 
+                        focus:shadow-outline 
+                        focus:outline-none 
+                        text-gray-500 
+                        font-bold 
+                        py-1 
+                        px-2"
+                    >
+                      {consoleItem?.name}
+                    </label>
                   </li>
                 );
               }
@@ -184,16 +360,52 @@ const Detalles = () => {
             })}
           </ul>
         </div>
-        <div>
+        <div
+          className="
+            pt-4
+            pb-4"
+        >
           <select
+            className=" 
+              mr-0.5
+              cursor-pointer
+              items-center 
+              py-2 
+              px-2.5 
+              text-sm 
+              font-medium 
+              text-center 
+              text-gray-600 
+              bg-gray-100 
+              border 
+              border-gray-300 
+              rounded-lg 
+              hover:bg-gray-200 
+              focus:ring-4 
+              focus:outline-none 
+              focus:ring-gray-100"
             onChange={(e) => handleChangeSelect("categories", e.target.value)}
             defaultValue="default"
           >
-            <option disabled value="default">
-              generos
+            <option
+              className="
+                text-xs
+                text-left"
+              disabled
+              value="default"
+            >
+              Generos
             </option>
             {categories?.map((category: any) => (
-              <option value={category.id} key={`category-${category.id}`}>
+              <option
+                className=" 
+                  text-gray-600
+                  bg-gray-100
+                  font-semibold
+                  text-left"
+                value={category.id}
+                key={`category-${category.id}`}
+              >
                 {category.name}
               </option>
             ))}
@@ -206,10 +418,23 @@ const Detalles = () => {
               if (categoryItem) {
                 return (
                   <li
+                    className="pt-2"
                     key={`categoryUl-${categoryItem.id}-${categoryItem.name}`}
                     onClick={() => handleDeleteOption(categoryItem.id)}
                   >
-                    {categoryItem?.name}
+                    <label
+                      className="
+                        cursor-pointer
+                        hover:text-purple-500 
+                        focus:shadow-outline 
+                        focus:outline-none 
+                        text-gray-500 
+                        font-bold 
+                        py-1 
+                        px-2"
+                    >
+                      {categoryItem?.name}
+                    </label>
                   </li>
                 );
               }
@@ -217,16 +442,52 @@ const Detalles = () => {
             })}
           </ul>
         </div>
-        <div>
+        <div
+          className="
+            pt-4
+            pb-4"
+        >
           <select
+            className=" 
+              mr-0.5
+              cursor-pointer
+              items-center 
+              py-2 
+              px-2.5 
+              text-sm 
+              font-medium 
+              text-center 
+              text-gray-600 
+              bg-gray-100 
+              border 
+              border-gray-300 
+              rounded-lg 
+              hover:bg-gray-200 
+              focus:ring-4 
+              focus:outline-none 
+              focus:ring-gray-100"
             onChange={(e) => handleChangeSelect("languages", e.target.value)}
             defaultValue="default"
           >
-            <option disabled value="default">
-              idiomas
+            <option
+              className="
+                text-xs
+                text-left"
+              disabled
+              value="default"
+            >
+              Idiomas
             </option>
             {languages?.map((language: any) => (
-              <option value={language.id} key={`language-${language.id}`}>
+              <option
+                className=" 
+                  text-gray-600
+                  bg-gray-100
+                  font-semibold
+                  text-left"
+                value={language.id}
+                key={`language-${language.id}`}
+              >
                 {language.name}
               </option>
             ))}
@@ -239,10 +500,23 @@ const Detalles = () => {
               if (languageItem) {
                 return (
                   <li
+                    className="pt-2"
                     key={`languageUl-${languageItem.id}`}
                     onClick={() => handleDeleteOption(languageItem.id)}
                   >
-                    {languageItem?.name}
+                    <label
+                      className="
+                        cursor-pointer
+                        hover:text-purple-500 
+                        focus:shadow-outline 
+                        focus:outline-none 
+                        text-gray-500 
+                        font-bold 
+                        py-1 
+                        px-2"
+                    >
+                      {languageItem?.name}
+                    </label>
                   </li>
                 );
               }
@@ -250,7 +524,22 @@ const Detalles = () => {
             })}
           </ul>
         </div>
-        <button type="submit">Guardar Cambios</button>
+        <button
+          className="
+            shadow 
+            bg-purple-500 
+            hover:bg-purple-400 
+            focus:shadow-outline 
+            focus:outline-none 
+            text-white 
+            font-bold 
+            py-2 
+            px-4 
+            rounded"
+          type="submit"
+        >
+          Guardar Cambios
+        </button>
       </form>
     </div>
   );
